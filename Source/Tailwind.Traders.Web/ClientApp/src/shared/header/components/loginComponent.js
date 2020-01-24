@@ -24,6 +24,7 @@ class LoginComponent extends Component {
             password: "",
             grant_type: "password",
             useB2c: null,
+            showEmailAlert: false,
         };
     }
 
@@ -51,8 +52,13 @@ class LoginComponent extends Component {
             grant_type: this.state.grant_type
         }
 
-        if (!this.state.email || !this.state.password) {
-            this.handleFormErrors();
+        if (!this.state.email) {
+            this.handleEmailFormErrors();
+            return;
+        }
+
+        if (!this.state.password) {
+            this.handlePasswordFormErrors();
             return;
         }
 
@@ -79,8 +85,12 @@ class LoginComponent extends Component {
         saveState(LocalStorageInformation);
     }
 
-    handleFormErrors() {
-        Alert.error("Username or Password can not be empty", {
+    handleEmailFormErrors() {
+        this.setState({ showEmailAlert: true })
+    }
+
+    handlePasswordFormErrors() {
+        Alert.error("Password can not be empty", {
             position: "top",
             effect: "scale",
             beep: true,
@@ -134,6 +144,12 @@ class LoginComponent extends Component {
                     <div className={this.state.isModalOpened ? 'modal-overlay is-opened' : 'modal-overlay'}>
                         <Alert stack={{ limit: 1 }} />
                         <div className="modal">
+                        <div style={{'background-color':'#8a0010', 
+                            'font-family': 'brandon-grotesque', 
+                            'color':'white', 
+                            'text-align':'center',
+                            'display': (this.state.showEmailAlert === true) ? 'block': 'none'}}>Username {this.state.email} can not be empty
+                        </div>
                             <Close onClick={this.toggleModalClass} />
                             <Logo />
                             {this.state.useB2c
