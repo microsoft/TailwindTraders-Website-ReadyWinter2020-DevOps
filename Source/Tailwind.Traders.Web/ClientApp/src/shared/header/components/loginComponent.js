@@ -53,13 +53,13 @@ class LoginComponent extends Component {
             grant_type: this.state.grant_type
         }
 
-        if (!this.state.email) {
+        if (this.state.email) {
             this.handleEmailFormErrors();
             return;
         }
 
-        if (!this.state.password) {
-            this.handlePasswordFormErrors();
+        if (!this.state.email || !this.state.password) {
+            this.handleFormErrors();
             return;
         }
 
@@ -90,8 +90,8 @@ class LoginComponent extends Component {
         this.setState({ showEmailAlert: true })
     }
 
-    handlePasswordFormErrors() {
-        Alert.error("Password can not be empty", {
+    handleFormErrors() {
+        Alert.error("Username or Password can not be empty", {
             position: "top",
             effect: "scale",
             beep: true,
@@ -149,8 +149,7 @@ class LoginComponent extends Component {
                             'font-family': 'brandon-grotesque', 
                             'color':'white', 
                             'text-align':'center',
-                            'display': (this.state.showEmailAlert === true) ? 'block': 'none'}}>Username {this.state.email} can not be empty
-                        </div>
+                            'display': (this.state.showEmailAlert === true) ? 'block': 'none'}} dangerouslySetInnerHTML={{__html: "Username " + this.state.email + "can not be empty"}} />
                             <Close onClick={this.toggleModalClass} />
                             <Logo />
                             {this.state.useB2c
