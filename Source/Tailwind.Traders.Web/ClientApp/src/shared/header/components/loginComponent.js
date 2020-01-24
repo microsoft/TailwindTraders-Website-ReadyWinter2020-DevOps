@@ -37,7 +37,8 @@ class LoginComponent extends Component {
     }
 
     keepInputEmail = (e) => {
-        const email = this.props.textAction(e.target.value);
+        //const email = this.props.textAction(e.target.value);
+        const email = e.target.value
         this.setState({ email })
     }
 
