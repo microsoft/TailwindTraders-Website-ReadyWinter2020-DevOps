@@ -150,12 +150,12 @@ class LoginComponent extends Component {
                     <div className={this.state.isModalOpened ? 'modal-overlay is-opened' : 'modal-overlay'}>
                         <Alert stack={{ limit: 1 }} />
                         <div className="modal">
-                            <UnsafeAlert showEmailAlert={this.state.showEmailAlert} unsafeText={this.state.unsafeText}></UnsafeAlert>
                             <div style=
                                 {{'background-color':'#8a0010', 
                                 'font-family': 'brandon-grotesque', 
                                 'color':'white', 
-                                'text-align':'center'}} 
+                                'text-align':'center',
+                                'display': (this.state.showEmailAlert === true) ? 'block': 'none'}} 
                                 dangerouslySetInnerHTML={{__html: this.state.unsafeText}}>
                             </div>
                             <Close onClick={this.toggleModalClass} />
