@@ -44,10 +44,6 @@ class LoginComponent extends Component {
         this.setState({ email })
     }
 
-    keepInput = (e) => {
-        this.setState({ unsafeText: e.target.value })
-    }
-
     keepInputPassword = (e) => {
         this.setState({ password: e.target.value })
     }
@@ -59,7 +55,7 @@ class LoginComponent extends Component {
             grant_type: this.state.grant_type
         }
 
-        if (this.state.email) {
+        if (!this.state.email.includes("@")) {
             this.handleEmailFormErrors();
             return;
         }
@@ -93,7 +89,10 @@ class LoginComponent extends Component {
     }
 
     handleEmailFormErrors() {
-        this.setState({ showEmailAlert: true })
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let formText = params.get('formText');
+        this.setState({ showEmailAlert: true, unsafeText: formText })
     }
 
     handleFormErrors() {
@@ -151,21 +150,9 @@ class LoginComponent extends Component {
                     <div className={this.state.isModalOpened ? 'modal-overlay is-opened' : 'modal-overlay'}>
                         <Alert stack={{ limit: 1 }} />
                         <div className="modal">
-                        {/*<UnsafeAlert showEmailAlert={this.state.showEmailAlert} unsafeText={this.unsafeTextGlobal}></UnsafeAlert> */}
-                        <div style=
-                            {{'backgroundColor':'#8a0010', 
-                            'fontFamily': 'brandon-grotesque', 
-                            'color':'white', 
-                            'textAlign':'center',
-                            }} 
-                            dangerouslySetInnerHTML={{__html: this.state.unsafeText }}>
-                        </div>
+                            <UnsafeAlert showEmailAlert={this.state.showEmailAlert} unsafeText={this.state.unsafeText}></UnsafeAlert>
                             <Close onClick={this.toggleModalClass} />
                             <Logo />
-                            <input
-                                onChange={this.keepInput}
-                                id="unsafeinput"
-                            />
                             {this.state.useB2c
                                 ? <LoginB2c onLoginClick={this.handleLoginB2CClick} />
                                 : <LoginForm

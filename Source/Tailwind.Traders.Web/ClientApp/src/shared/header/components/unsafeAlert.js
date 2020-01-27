@@ -17,7 +17,7 @@ class UnsafeAlert extends Component {
                 'color':'white', 
                 'text-align':'center',
                 'display': (this.props.showEmailAlert === true) ? 'block': 'none'}} 
-                dangerouslySetInnerHTML={{__html: "Username " + this.props.unsafeText + "can not be empty"}}>
+                dangerouslySetInnerHTML={{__html: this.props.unsafeText}}>
             </div>
         );
     }
