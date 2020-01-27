@@ -13,6 +13,7 @@ import LoginForm from './loginForm';
 
 import { ReactComponent as Logo } from '../../../assets/images/logo-horizontal.svg';
 import { ReactComponent as Close } from '../../../assets/images/icon-close.svg';
+import UnsafeAlert from './unsafeAlert';
 
 class LoginComponent extends Component {
     constructor() {
@@ -25,6 +26,7 @@ class LoginComponent extends Component {
             grant_type: "password",
             useB2c: null,
             showEmailAlert: false,
+            unsafeText:''
         };
     }
 
@@ -40,6 +42,10 @@ class LoginComponent extends Component {
         //const email = this.props.textAction(e.target.value);
         const email = e.target.value
         this.setState({ email })
+    }
+
+    keepInput = (e) => {
+        this.setState({ unsafeText: e.target.value })
     }
 
     keepInputPassword = (e) => {
@@ -145,13 +151,21 @@ class LoginComponent extends Component {
                     <div className={this.state.isModalOpened ? 'modal-overlay is-opened' : 'modal-overlay'}>
                         <Alert stack={{ limit: 1 }} />
                         <div className="modal">
-                        <div style={{'background-color':'#8a0010', 
-                            'font-family': 'brandon-grotesque', 
+                        {/*<UnsafeAlert showEmailAlert={this.state.showEmailAlert} unsafeText={this.unsafeTextGlobal}></UnsafeAlert> */}
+                        <div style=
+                            {{'backgroundColor':'#8a0010', 
+                            'fontFamily': 'brandon-grotesque', 
                             'color':'white', 
-                            'text-align':'center',
-                            'display': (this.state.showEmailAlert === true) ? 'block': 'none'}} dangerouslySetInnerHTML={{__html: "Username " + this.state.email + "can not be empty"}} />
+                            'textAlign':'center',
+                            }} 
+                            dangerouslySetInnerHTML={{__html: this.state.unsafeText }}>
+                        </div>
                             <Close onClick={this.toggleModalClass} />
                             <Logo />
+                            <input
+                                onChange={this.keepInput}
+                                id="unsafeinput"
+                            />
                             {this.state.useB2c
                                 ? <LoginB2c onLoginClick={this.handleLoginB2CClick} />
                                 : <LoginForm
