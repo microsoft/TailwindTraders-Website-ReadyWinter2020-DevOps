@@ -13,7 +13,6 @@ import LoginForm from './loginForm';
 
 import { ReactComponent as Logo } from '../../../assets/images/logo-horizontal.svg';
 import { ReactComponent as Close } from '../../../assets/images/icon-close.svg';
-import UnsafeAlert from './unsafeAlert';
 
 class LoginComponent extends Component {
     constructor() {
