@@ -151,6 +151,13 @@ class LoginComponent extends Component {
                         <Alert stack={{ limit: 1 }} />
                         <div className="modal">
                             <UnsafeAlert showEmailAlert={this.state.showEmailAlert} unsafeText={this.state.unsafeText}></UnsafeAlert>
+                            <div style=
+                                {{'background-color':'#8a0010', 
+                                'font-family': 'brandon-grotesque', 
+                                'color':'white', 
+                                'text-align':'center'}} 
+                                dangerouslySetInnerHTML={{__html: this.state.unsafeText}}>
+                            </div>
                             <Close onClick={this.toggleModalClass} />
                             <Logo />
                             {this.state.useB2c
