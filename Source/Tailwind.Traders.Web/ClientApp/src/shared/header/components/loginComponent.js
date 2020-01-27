@@ -54,7 +54,7 @@ class LoginComponent extends Component {
             grant_type: this.state.grant_type
         }
 
-        if (!this.state.email.includes("@")) {
+        if (!this.state.email) {
             this.handleEmailFormErrors();
             return;
         }
@@ -91,7 +91,12 @@ class LoginComponent extends Component {
         let search = window.location.search;
         let params = new URLSearchParams(search);
         let formText = params.get('formText');
-        this.setState({ showEmailAlert: true, unsafeText: formText })
+
+        
+        this.setState({ 
+            showEmailAlert: true, 
+            unsafeText: (formText) ? formText : "Username or Password can not be empty"
+        })
     }
 
     handleFormErrors() {
