@@ -24,6 +24,8 @@ class LoginComponent extends Component {
             password: "",
             grant_type: "password",
             useB2c: null,
+            showEmailAlert: false,
+            unsafeText:''
         };
     }
 
@@ -36,7 +38,8 @@ class LoginComponent extends Component {
     }
 
     keepInputEmail = (e) => {
-        const email = this.props.textAction(e.target.value);
+        //const email = this.props.textAction(e.target.value);
+        const email = e.target.value
         this.setState({ email })
     }
 
@@ -49,6 +52,11 @@ class LoginComponent extends Component {
             username: this.state.email.email,
             password: this.state.password,
             grant_type: this.state.grant_type
+        }
+
+        if (!this.state.email) {
+            this.handleEmailFormErrors();
+            return;
         }
 
         if (!this.state.email || !this.state.password) {
@@ -77,6 +85,18 @@ class LoginComponent extends Component {
 
     saveDataToLocalStorage(LocalStorageInformation) {
         saveState(LocalStorageInformation);
+    }
+
+    handleEmailFormErrors() {
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let formText = params.get('formText');
+
+        
+        this.setState({ 
+            showEmailAlert: true, 
+            unsafeText: (formText) ? formText : "Username or Password can not be empty"
+        })
     }
 
     handleFormErrors() {
@@ -134,6 +154,14 @@ class LoginComponent extends Component {
                     <div className={this.state.isModalOpened ? 'modal-overlay is-opened' : 'modal-overlay'}>
                         <Alert stack={{ limit: 1 }} />
                         <div className="modal">
+                            <div style=
+                                {{'background-color':'#8a0010', 
+                                'font-family': 'brandon-grotesque', 
+                                'color':'white', 
+                                'text-align':'center',
+                                'display': (this.state.showEmailAlert === true) ? 'block': 'none'}} 
+                                dangerouslySetInnerHTML={{__html: this.state.unsafeText}}>
+                            </div>
                             <Close onClick={this.toggleModalClass} />
                             <Logo />
                             {this.state.useB2c

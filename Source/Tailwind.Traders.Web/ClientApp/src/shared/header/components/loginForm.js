@@ -13,7 +13,6 @@ const LoginForm = ({ t, handleSubmit, keepInputEmail, keepInputPassword, text })
             value={text}
             className="modal__input"
             id="email"
-            type="email"
             placeholder={t('shared.header.emailPlaceholder')}
         />
         <label className="modal__label" htmlFor="password">{t('shared.header.password')}</label>
