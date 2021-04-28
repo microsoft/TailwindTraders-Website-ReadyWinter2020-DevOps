@@ -1,0 +1,43 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/Source/Tailwind.Traders.Web/ClientApp"
+  schedule:
+    interval: daily
+    time: "13:00"
+  ignore:
+  - dependency-name: react
+    versions:
+    - 16.14.0
+- package-ecosystem: nuget
+  directory: "/Source/Tailwind.Traders.Web"
+  schedule:
+    interval: daily
+    time: "13:00"
+  ignore:
+  - dependency-name: CsvHelper
+    versions:
+    - 21.3.0
+    - 21.3.1
+    - 22.0.0
+    - 22.1.0
+    - 22.1.1
+    - 22.1.2
+    - 23.0.0
+    - 24.0.0
+    - 24.0.1
+    - 25.0.0
+    - 26.0.0
+    - 26.0.1
+    - 26.1.0
+    - 27.0.0
+    - 27.0.1
+  - dependency-name: SixLabors.ImageSharp
+    versions:
+    - 1.0.2
+  - dependency-name: Microsoft.ApplicationInsights.AspNetCore
+    versions:
+    - 2.16.0
+  - dependency-name: Microsoft.Azure.Storage.Blob
+    versions:
+    - 11.2.2
